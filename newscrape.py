@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import urllib.request
-usa = ("http://www.foxnews.com")
+file = ("/Users/mitchelking/Documents/NewsHeadlines/news.txt")
 def USA(url):
 	url = ("http://www.foxnews.com")
 	req = urllib.request.Request(url, data=None, 
@@ -9,14 +9,14 @@ def USA(url):
     	})
 	z = urllib.request.urlopen(req).read()
 	soup = BeautifulSoup(z, 'html.parser')
-	#data = soup.find('h3', span = {'cd__headline-text'})
+	data = soup.find('main', {'class': 'main-content'})
+	data1 = data.h2.a
 	#headline = soup.find('span',{'class': 'cd__headline-text'})
 	#headline1 = headline.find("strong")
-	#strip = data.text.strip()
-	#print(strip)
+	strip = data1.text.strip()
+	#return(strip)
 
-#//*[@id="intl_homepage1-zone-1"]/div[2]/div/div[1]/ul/article[1]/div/div[2]/h3/a/span[1]/strong/text()
-swiss = ("https://www.swissinfo.ch/eng/latest-news")
+
 def switzlerand(url):
 	url = ("https://www.swissinfo.ch/eng/latest-news")
 	req = urllib.request.Request(url, data=None, 
@@ -28,10 +28,9 @@ def switzlerand(url):
 
 	data = soup.find('span', {'itemprop': 'name headline'})
 	strip = data.text.strip()
-	print(strip)
+	#return(strip).encode()
 
 
-aus = ("http://www.news.com.au")
 def aus(url):
 	url = ("http://www.news.com.au")
 	req = urllib.request.Request(url, data=None, 
@@ -40,13 +39,18 @@ def aus(url):
     	})
 
 	z = urllib.request.urlopen(req).read()	
-	soup = ICantBelieveItsBeautifulSoup(z, "html.parser")
+	soup = BeautifulSoup(z, "html.parser")
 
 	data = soup.find('h4', {'class': 'heading'})
 	strip = data.text.strip()
 	#return(strip)
-	print(strip)
+	#return(strip)
 
-switzlerand(swiss)
-USA(usa)
-aus(aus)
+switzlerand('https://www.swissinfo.ch/eng/latest-news')
+USA('http://www.foxnews.com')
+aus('http://www.news.com.au')
+
+
+with open(file, 'ab') as database:
+	database.write(USA) + '/n' + (switzlerand) + '/n' + (aus)
+	database.close()
