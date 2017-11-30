@@ -1,15 +1,15 @@
 from bs4 import BeautifulSoup
 import urllib.request
-file = ("C:\Scratch\Python Scripts\Copy1.txt")
-file1 = ("C:\Scratch\Python Scripts\copy2.txt")
+file = ("/Users/mitchelking/Documents/Stocks/Stocks.txt")
+file1 = ("/Users/mitchelking/Documents/Stocklinks/Stocklinks.txt")
 
 
 with open(file1, 'r') as infile:
 	data = infile.readlines()
 	Stock1 = data[0]
 	Stock2 = data[1]
-	stock3 = data[2]
-	stock4 = data[3]
+	#stock3 = data[2]
+	#stock4 = data[3]
 		
 		
 	infile.close()
@@ -24,9 +24,11 @@ def stocks1(S1):
 			
 		z = urllib.request.urlopen(req).read()
 		soup = BeautifulSoup(z, 'html.parser')
-		data = soup.find('div', {'class': ['_FOc','_Rnb fmob_pr fac-l']})
-		data2 = data.text.strip()
-		ofile.write('Quantify FPO '+data2)
+		predata = soup.find('div', {'class': ['_FOc','_Rnb fmob_pr fac-l']})
+		predata1 = soup.find('div', {'class': 'vk_gy _KNe vk_h'})
+		data = predata.text.strip()
+		data1 = predata1.text.strip()
+		ofile.write(data1+' ' +data)
 		ofile.close()
 		
 stocks1(Stock1)
