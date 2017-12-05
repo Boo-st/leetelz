@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import urllib.request
-file = ("")
-file1 = ("")
+file = ("C:\Scratch\Python Scripts\Copy1.txt")
+file1 = ("C:\Scratch\Python Scripts\copy2.txt")
 
 
 with open(file1, 'r') as infile:
