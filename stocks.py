@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import urllib.request
-file = ("/Users/mitchelking/Documents/Stocks/Stocks.txt")
-file1 = ("/Users/mitchelking/Documents/Stocklinks/Stocklinks.txt")
+file = ("")
+file1 = ("")
 
 
 with open(file1, 'r') as infile:
