@@ -1,10 +1,12 @@
 from bs4 import BeautifulSoup
 import urllib.request
-file = ("C:\Scratch\Python Scripts\Copy1.txt")
-file1 = ("C:\Scratch\Python Scripts\copy2.txt")
+import re
+file = ("/Users/mitchelking/Documents/Stocklinks/Stocklinks.txt")
+file1 = ("/Users/mitchelking/Documents/Stocks/Stocks.txt")
+file2 = ("")
 
 
-with open(file1, 'r') as infile:
+with open(file, 'r') as infile:
 	data = infile.readlines()
 	Stock1 = data[0]
 	Stock2 = data[1]
@@ -13,10 +15,23 @@ with open(file1, 'r') as infile:
 		
 		
 	infile.close()
+
+def graph():
+	with open(file1, 'r') as ingraph:
+		data = ingraph.readlines()
+		for line in data:
+			if "Quantify" in line:
+				search = re.findall("\d+\.\d+", line)
+				with open('/Users/mitchelking/Documents/Stocks/Graph.txt', 'a') as outgraph:
+					outgraph.write('\n'.join(search))
+					outgraph.close()
+
+		
+graph()
 	
 #S1 = ("https://www.google.com.au/search?rlz=1C1GGRV_enAU758AU758&ei=D-UTWtmQEMK40AS_jqboBA&q=asx%3Aqfy&oq=asx%3Aqfy&gs_l=psy-ab.3...7155.123011.0.123089.4.4.0.0.0.0.216.216.2-1.1.0....0...1c.1.64.psy-ab..3.1.216...0j35i39k1j0i67k1j0i131k1.0.lKFysImVfOQ")
-def stocks1(S1):
-	with open(file, 'a') as ofile:
+def stocks(S1):
+	with open(file1, 'a') as ofile:
 		req = urllib.request.Request(S1, data=None, 
 			headers={
 				'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
@@ -28,11 +43,12 @@ def stocks1(S1):
 		predata1 = soup.find('div', {'class': 'vk_gy _KNe vk_h'})
 		data = predata.text.strip()
 		data1 = predata1.text.strip()
-		ofile.write(data1+' ' +data)
+		ofile.write(data1+data+'\n')
 		ofile.close()
 		
-stocks1(Stock1)
-
+#stocks(Stock1)
+#stocks(Stock2)
+"""
 #S2 = ("https://www.google.com.au/search?rlz=1C1GGRV_enAU758AU758&ei=LeMcWs7BD4GE8gXG4JDQBg&q=asx%3Abud&oq=asx%3Abud&gs_l=psy-ab.3..35i39k1l2j0i131i67k1j0i67k1j0i131k1l3j0l3.2967571.2968874.0.2969055.6.6.0.0.0.0.331.331.3-1.1.0....0...1c.1.64.psy-ab..5.1.331....0.mQ7ipr_Qkdc")
 def stocks2(S2):
 	with open(file, 'a') as ofile:
@@ -49,5 +65,5 @@ def stocks2(S2):
 		ofile.close()
 						
 stocks2(Stock2)
-
+"""
 
