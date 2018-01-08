@@ -1,69 +1,100 @@
 from bs4 import BeautifulSoup
 import urllib.request
+import matplotlib.pyplot as plt
 import re
 file = ("/Users/mitchelking/Documents/Stocklinks/Stocklinks.txt")
 file1 = ("/Users/mitchelking/Documents/Stocks/Stocks.txt")
-file2 = ("")
+file2 = ("/Users/mitchelking/Documents/Stocks/Graph.txt")
+
+# For function sort and then to count howmany links in the file and create a variagle for each
+#file3 = ("C:\Scratch\Python Scripts\projstocks\in1.txt")
+#file4 = ("C:\Scratch\Python Scripts\projstocks\in2.txt")
+#file5 = ("C:\Scratch\Python Scripts\projstocks\in3.txt")
 
 
-with open(file, 'r') as infile:
+def trip(z):
+	if z == len(c):
+		return False
+	else:
+		return True
+		
+
+def search():
+	Usersearch = input("What Australian stock would you like to monitor? (Exchange name) :")
+	url = (f"https://www.google.com.au/search?dcr=0&ei=EnMvWuq1LoL-8QXFibDACQ&q=asx%3A{Usersearch}&oq=asx%3Atcc&gs_l=psy-ab.3..0i71k1l4.0.0.0.13118.0.0.0.0.0.0.0.0..0.0....0...1c..64.psy-ab..0.0.0....0.TupNfg8lvIg")
+	return url
+"""
+def sort(r):
+	with open(file3, 'a') as in1:
+		in1.write(r)
+	with open(file4, 'a') as in2:
+		in2.write(r)
+	with open(file5, 'a') as in3:
+		in3.write(r)
+
+
+# Assigns the google search link to a variable which is used to pass to the function, need to make if statement????
+with open(file1, 'r') as infile:
 	data = infile.readlines()
+	i = len(data)
+	z = i - len(data)		
 	Stock1 = data[0]
 	Stock2 = data[1]
-	#stock3 = data[2]
-	#stock4 = data[3]
+	Stock3 = data[2]
+	#Stock4 = data[3]
 		
 		
 	infile.close()
-
+"""
+	
+#Can search for the stockname by user input, and extrat the first value of the stock in the data file, using this to create a graph
 def graph():
-	with open(file1, 'r') as ingraph:
+	#Keyword = input("What stock would you like to generate a graph for? ")
+	with open(file, 'r') as ingraph:
 		data = ingraph.readlines()
 		for line in data:
-			if "Quantify" in line:
+			if ("Quantify") in line:
 				search = re.findall("\d+\.\d+", line)
-				with open('/Users/mitchelking/Documents/Stocks/Graph.txt', 'a') as outgraph:
-					outgraph.write('\n'.join(search))
-					outgraph.close()
-
+				with open(file2, 'a') as outgraph:
+					outgraph.write(search[0]+"\n")
+					
+					
+	with open(file2, 'r') as outgraph:
+		data = outgraph.readlines()
+		plt.plot(data)
+		plt.show()
 		
-graph()
+#graph()
 	
-#S1 = ("https://www.google.com.au/search?rlz=1C1GGRV_enAU758AU758&ei=D-UTWtmQEMK40AS_jqboBA&q=asx%3Aqfy&oq=asx%3Aqfy&gs_l=psy-ab.3...7155.123011.0.123089.4.4.0.0.0.0.216.216.2-1.1.0....0...1c.1.64.psy-ab..3.1.216...0j35i39k1j0i67k1j0i131k1.0.lKFysImVfOQ")
-def stocks(S1):
-	with open(file1, 'a') as ofile:
-		req = urllib.request.Request(S1, data=None, 
-			headers={
-				'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
-			})
-			
-		z = urllib.request.urlopen(req).read()
-		soup = BeautifulSoup(z, 'html.parser')
-		predata = soup.find('div', {'class': ['_FOc','_Rnb fmob_pr fac-l']})
-		predata1 = soup.find('div', {'class': 'vk_gy _KNe vk_h'})
-		data = predata.text.strip()
-		data1 = predata1.text.strip()
-		ofile.write(data1+data+'\n')
-		ofile.close()
+	
+#Takes the google stock link (S1) and extracts the data
+def stocks1(S1):
+	if not trip(count()):
+		with open(file, 'a') as ofile:
+			req = urllib.request.Request(S1, data=None, 
+				headers={
+					'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
+				})
+				
+			z = urllib.request.urlopen(req).read()
+			soup = BeautifulSoup(z, 'html.parser')
+			predata = soup.find('div', {'class': '_FOc'})
+			predata1 = soup.find('div', {'class': 'vk_gy _KNe vk_h'})
+			predata2 = predata.find('span', {'class': '_Rnb fmob_pr fac-l'})
+			data = predata.text.strip()
+			data1 = predata1.text.strip()
+			data3 = predata2.text.strip()
+			#ofile.write(data1+" "+data + '\n')
+			ofile.close()
+			c.append(1)
+			print(data3)
+			return True
+	
 		
-#stocks(Stock1)
-#stocks(Stock2)
-"""
-#S2 = ("https://www.google.com.au/search?rlz=1C1GGRV_enAU758AU758&ei=LeMcWs7BD4GE8gXG4JDQBg&q=asx%3Abud&oq=asx%3Abud&gs_l=psy-ab.3..35i39k1l2j0i131i67k1j0i67k1j0i131k1l3j0l3.2967571.2968874.0.2969055.6.6.0.0.0.0.331.331.3-1.1.0....0...1c.1.64.psy-ab..5.1.331....0.mQ7ipr_Qkdc")
-def stocks2(S2):
-	with open(file, 'a') as ofile:
-		req = urllib.request.Request(S2, data=None, 
-			headers={
-				'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
-			})
-			
-		z = urllib.request.urlopen(req).read()
-		soup = BeautifulSoup(z, 'html.parser')
-		data = soup.find('div', {'class': ['_FOc','_Rnb fmob_pr fac-l']})
-		data1 = data.text.strip()
-		ofile.write('\n'+"Buddy FPO "+data1)
-		ofile.close()
-						
-stocks2(Stock2)
-"""
+		
+c = []
+count = int(input("How many days would you like to monitor the selected stocks for? "))
+while stocks1(search()):
+	stocks1(search())
+	print(len(c))
 
