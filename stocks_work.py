@@ -3,6 +3,7 @@ import urllib.request
 import matplotlib.pyplot as plt
 import re
 import os
+import datetime
 file = ("C:\Scratch\Python Scripts\Copy1.txt")
 file1 = ("C:\Scratch\Python Scripts\copy2.txt")
 file2 = ("C:\Scratch\Python Scripts\graph.txt")
@@ -12,12 +13,14 @@ file3 = ("C:\Scratch\Python Scripts\projstocks\in1.txt")
 file4 = ("C:\Scratch\Python Scripts\projstocks\in2.txt")
 file5 = ("C:\Scratch\Python Scripts\projstocks\in3.txt")
 
+# takes the current date of the day script is run, adds the number of user days and returns
 def trip(z):
-	if z == len(c):
-		return False
-	else:
-		return True
-		
+	now = str(datetime.date.today())
+	end = now[8] + now[9]
+	return int(end) + z
+	 
+			
+#Takes user input in form of ASX code and returns the search link		
 def search():
 	Usersearch = input("What Australian stock would you like to monitor? (Exchange name) :")
 	url = (f"https://www.google.com.au/search?dcr=0&ei=EnMvWuq1LoL-8QXFibDACQ&q=asx%3A{Usersearch}&oq=asx%3Atcc&gs_l=psy-ab.3..0i71k1l4.0.0.0.13118.0.0.0.0.0.0.0.0..0.0....0...1c..64.psy-ab..0.0.0....0.TupNfg8lvIg")
@@ -87,7 +90,12 @@ def stocks1(S1):
 		
 c = []
 count = int(input("How many days would you like to monitor the selected stocks for? "))
+now = trip(count)
+
+
+"""
 while len(c) < count:
 	stocks1(search())
 else:
 	graph()
+"""
