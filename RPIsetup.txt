@@ -1,0 +1,24 @@
+2.a Install Raspbian on the Raspberry pi
+	Raspbian is the operating system which runs on the raspberr pi, based on linux, what we are going to do in step 2.a is provide instructions on how
+	to download the operating system, write the operating system to the Raspberry pi's SD card, and activate SSH on boot for easy configuration
+	
+	Navigate to the following "" and download the os image, unzip this file and open your imaging software like so
+	
+	
+	Choose your SD card as the destination drive, the drive letter can be obtained under my computer for windows, or finder on mac
+	Write the image to the SD card, once succesful we can insert the SD card into the pi and apply power
+	
+	Plug your raspberry pi into your router and navigate to your router's address to view the DHCP clients and find the address of the Pi
+	
+	Once the address has been found we can ssh into the unit by using the default ssh "hostname@IP"
+	Once you are logged into the pi, we can expand the OS system into the rest of the SD card and enable VNC for GUI access of the RPI
+	
+	To expand the OS we run "sudo raspi-config" which will bring up a GUI, from here you can expand file system memory
+	
+	
+	
+	
+	
+	
+	
+	                                                                                            
