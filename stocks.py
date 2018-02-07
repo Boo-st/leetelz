@@ -14,7 +14,7 @@ file2 = ("/Users/mitchelking/Documents/Stocks/Graph.txt")
 
 
 class stocks:
-
+	 = []	
 
 	now = str(datetime.date.today())
 	count = int(input("How many days would you like to monitor the selected stocks for? "))
@@ -70,11 +70,11 @@ class stocks:
 				data3 = predata2.text.strip()
 				#ofile.write(data1+" "+data + '\n')
 				ofile.close()
-				c.append(1)
+				stocks.c.append(1)
 				print(data3)
 				return True
 		
-	c = []		
+	
 		
 	while stocks1(search()):
 		stocks1(search())
