@@ -36,3 +36,19 @@ class woodstocks():
 
 
 
+	def update_count(horses, elephants, dogs, seals):
+		new_count = True
+		while new_count:	
+			newlines = input('please enter the updated Horses: ')
+			newlines2 = input('please enter the updates Elephants: ')
+			newlines3 = input('please enter the updates Dogs: ')
+			newlines4 = input('please enter the updates Seals: ')
+
+			test = input('Is this correct? \n Horses : {0} \n Elephants : {1} \n Dogs : {2} \n Seals : {3} \n (y or n?)'.format(newlines, newlines2, newlines3, newlines4))
+			if test == 'y':
+				new_count = False
+			
+		return(newlines, newlines2, newlines3, newlines4)
+
+
+					
