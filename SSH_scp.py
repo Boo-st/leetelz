@@ -34,9 +34,7 @@ class woodstocks():
 				
 
 
-
-
-	def update_count(horses, elephants, dogs, seals):
+	def update_count():
 		new_count = True
 		while new_count:	
 			newlines = input('please enter the updated Horses: ')
@@ -52,3 +50,24 @@ class woodstocks():
 
 
 					
+	def transfer(host, filepath, username, password):
+		with open('/Users/mitchelking/Python/test.txt', 'w') as new_f:
+			new_f.write(lines[0] + '\n' + lines[1], + '\n' + lines[2] + '\n' + lines[3])
+
+		ssh = SSHClient()
+		ssh.load_system_host_keys()
+		ssh.connect(host, port=22, username=username, password=password)
+
+
+		scp = SCPClient(ssh.get_transport())
+		scp.put('/Users/mitchelking/Python/test.txt', remote_path=filepath)
+		scp.close()
+
+
+
+		#transfer('mitchelsmbp.local', '/Users/mitchelking/Python', 'mitchelking', 'five-062202')
+
+#temp_host, temp_filepath, temp_username, temp_password = woodstocks.setup()
+#woodstocks.transfer(temp_host, temp_filepath, temp_username, temp_password)
+
+woodstocks.update_count()
