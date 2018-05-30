@@ -12,47 +12,62 @@ class woodstocks():
 		input(">")
 		print("First, I need some basic information from you")
 
+		localpath = input("Please enter a local file path to store your stocktake : ")
 		host = input("What is the hostname of the machine which you would like your stocktake loaded? : ")
-		filepath = input("What destination would you like your updated stocktake to be placed? : ")
+		filepath = input("What is the filepath on your remote location : ")
 		username = input("Username for Host : ")
 		password = input("password for Host : ")
 
 		print('Thank you')
 
-		return(host, filepath, username, password)
+		return(host, filepath, username, password, localpath)
 
 
-	def new_count():
-		count = True
-		while count:
+	def new_count(file='/Users/mitchelking/Python/test.txt'):
+		while True:
 			exists = input('Do you have a new count to enter? (y or n)')
 			if exists == 'y':
-				Horses = input('Horses :')
-				Elephants = input('Elephants :')
-				Dogs = input('Dogs :')
-				Seals = input('Seals :')
+				with open(file, 'r') as item:
+					try:
+						text = [line.strip() for line in item]
+						print(text[0])
+						Horses = input('Horses :')
+						print(text[1])
+						Elephants = input('Elephants :')
+						print(text[2])
+						Dogs = input('Dogs :')
+						print(text[3])
+						Seals = input('Seals :')
+					except IndexError:
+						woodstocks.update_count()
+						return False
+			else:
+				return False	
 				
 
 
 	def update_count():
 		new_count = True
 		while new_count:	
-			newlines = input('please enter the updated Horses: ')
-			newlines2 = input('please enter the updates Elephants: ')
-			newlines3 = input('please enter the updates Dogs: ')
-			newlines4 = input('please enter the updates Seals: ')
+			newlines = input('please enter the current Horses: ')
+			newlines2 = input('please enter the current Elephants: ')
+			newlines3 = input('please enter the current Dogs: ')
+			newlines4 = input('please enter the current Seals: ')
 
 			test = input('Is this correct? \n Horses : {0} \n Elephants : {1} \n Dogs : {2} \n Seals : {3} \n (y or n?)'.format(newlines, newlines2, newlines3, newlines4))
 			if test == 'y':
 				new_count = False
+
+		with open('/Users/mitchelking/Python/test.txt', 'w') as new_f:
+			new_f.write('Horses ' + newlines + '\n' + 'Elephants ' + newlines2 + '\n' + 'Dogs ' + newlines3 + '\n' + 'Seals ' + newlines4)
 			
 		return(newlines, newlines2, newlines3, newlines4)
 
 
 					
 	def transfer(host, filepath, username, password):
-		with open('/Users/mitchelking/Python/test.txt', 'w') as new_f:
-			new_f.write(lines[0] + '\n' + lines[1], + '\n' + lines[2] + '\n' + lines[3])
+		#with open('/Users/mitchelking/Python/test.txt', 'w') as new_f:
+		#	new_f.write(lines[0] + '\n' + lines[1], + '\n' + lines[2] + '\n' + lines[3])
 
 		ssh = SSHClient()
 		ssh.load_system_host_keys()
@@ -65,9 +80,7 @@ class woodstocks():
 
 
 
-		#transfer('mitchelsmbp.local', '/Users/mitchelking/Python', 'mitchelking', 'five-062202')
-
 #temp_host, temp_filepath, temp_username, temp_password = woodstocks.setup()
 #woodstocks.transfer(temp_host, temp_filepath, temp_username, temp_password)
 
-woodstocks.update_count()
+woodstocks.new_count()
