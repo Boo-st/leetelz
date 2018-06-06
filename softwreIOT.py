@@ -24,25 +24,39 @@ class woodstocks():
 
 
 	def new_count(file='/Users/mitchelking/Python/test.txt'):
+		#Descriptions of stock
+		horses_d = (' | Horse on wheels | ')
+		elephants_d = (' | Elephant on wheels | ')
+		dog_d = (' | Dog on wheels | ')
+		seal_d = (' | Seal on wheels | ')
+
+		#opens file and reads back what was saved from previous session, asks user to enter new count
 		while True:
-			exists = input('Do you have a new count to enter? (y or n)')
-			if exists == 'y':
-				with open(file, 'r') as item:
-					try:
-						text = [line.strip() for line in item]
-						print(text[0])
-						Horses = input('Horses :')
-						print(text[1])
-						Elephants = input('Elephants :')
-						print(text[2])
-						Dogs = input('Dogs :')
-						print(text[3])
-						Seals = input('Seals :')
-					except IndexError:
-						woodstocks.update_count()
-						return False
-			else:
-				return False	
+			with open(file, 'r+') as item:
+				try:
+					text = [line.strip() for line in item]
+
+					print(text[0])
+					Horses = input('Horses :')
+					ro_h = input('Reorder? (y or n)')
+					print(text[1])
+					Elephants = input('Elephants :')
+					ro_e = input('Reorder? (y or n)')
+					print(text[2])
+					Dogs = input('Dogs :')
+					ro_d = input('Reorder? (y or n)')
+					print(text[3])
+					Seals = input('Seals :')
+					ro_s = input('Reorder? (y or n)')
+
+					#truncates file after reading is complete, writes new user input
+					item.seek(0)
+					item.truncate()
+					item.write('Horses: ' + Horses + horses_d + ro_h + '\n' + 'Elephants: ' + Elephants + elephants_d + ro_e + '\n' + 'Dogs: ' + Dogs + dog_d + ro_d + '\n' + 'Seals: ' + Seals + seal_d + ro_s)				
+					return False
+				# error handling if nothing exists in the output file it runs update.count()
+				except IndexError:
+					woodstocks.update_count()	
 				
 
 
