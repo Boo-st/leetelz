@@ -1,6 +1,5 @@
 from paramiko import SSHClient
 from paramiko import SSHException
-
 from scp import SCPClient
 import RPi.GPIO as GPIO
 import socket
@@ -87,33 +86,32 @@ class woodstocks():
 		
 
 
-					
+				
 	def transfer(local, host, filepath, username, password):
-		while True:
-			try:
+		try:
 				#SSH connection using variables from setup()
-				ssh = SSHClient()
-				ssh.load_system_host_keys()
-				ssh.connect(host, port=22, username=username, password=password)
-				scp = SCPClient(ssh.get_transport())
-				scp.put(local, remote_path=filepath)
-				scp.close()
-				GPIO.output(g_led, GPIO.HIGH)
-			except AttributeError:
-				GPIO.output(r_led, GPIO.HIGH)
-				return False
-				woodstocks.setup()
-			except (socket.error, SSHException):
-				GPIO.output(r_led, GPIO.HIGH)
-				woodstocks.setup()
+			ssh = SSHClient()
+			ssh.load_system_host_keys()
+			ssh.connect(host, port=22, username=username, password=password)
+
+			scp = SCPClient(ssh.get_transport())
+			scp.put(local, remote_path=filepath)
+			scp.close()
+			GPIO.output(g_led, GPIO.HIGH)
+		except AttributeError:
+			GPIO.output(r_led, GPIO.HIGH)
+			return False
+			woodstocks.setup()
+		except (socket.error, SSHException):
+			GPIO.output(r_led, GPIO.HIGH)
+			woodstocks.setup()
 
 
 
 
-temp_local, temp_host, temp_filepath, temp_username, temp_password = woodstocks.setup()
-if not woodstocks.update_count(temp_local):
-	woodstocks.transfer(temp_local, temp_host, temp_filepath, temp_username, temp_password)
-
+#temp_local, temp_host, temp_filepath, temp_username, temp_password = woodstocks.setup()
+#if not woodstocks.update_count(temp_local):
+woodstocks.transfer('/Users/mitchelking/Python/test.txt', 'mitchelsmbp.local', '/Users/mitchelking/Python/test.txt', 'mitchelking', 'five-062202')
 
 
 
