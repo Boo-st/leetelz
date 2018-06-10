@@ -1,7 +1,8 @@
 from paramiko import SSHClient
 from paramiko import SSHException
+
 from scp import SCPClient
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import socket
 
 
@@ -94,9 +95,6 @@ class woodstocks():
 				ssh = SSHClient()
 				ssh.load_system_host_keys()
 				ssh.connect(host, port=22, username=username, password=password)
-			except (socket.error, SSHException):
-				GPIO.output(r_led, GPIO.HIGH)
-			else:
 				scp = SCPClient(ssh.get_transport())
 				scp.put(local, remote_path=filepath)
 				scp.close()
@@ -104,6 +102,10 @@ class woodstocks():
 			except AttributeError:
 				GPIO.output(r_led, GPIO.HIGH)
 				return False
+				woodstocks.setup()
+			except (socket.error, SSHException):
+				GPIO.output(r_led, GPIO.HIGH)
+				woodstocks.setup()
 
 
 
