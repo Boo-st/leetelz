@@ -8,8 +8,10 @@ import socket
 g_led = 13
 r_led = 11
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(g_led, r_led, GPIO.OUT)
-GPIO.output(g_led, r_led, GPIO.LOW)
+GPIO.setup(g_led, GPIO.OUT)
+GPIO.setup(r_led, GPIO.OUT)
+GPIO.output(g_led, GPIO.LOW)
+GPIO.output(r_led, GPIO.LOW)
 
 class woodstocks():
 
