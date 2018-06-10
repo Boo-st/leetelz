@@ -102,7 +102,6 @@ class woodstocks():
 			GPIO.output(g_led, GPIO.HIGH)
 		except AttributeError:
 			GPIO.output(r_led, GPIO.HIGH)
-			return False
 			woodstocks.setup()
 		except (socket.error, SSHException):
 			GPIO.output(r_led, GPIO.HIGH)
@@ -111,9 +110,9 @@ class woodstocks():
 
 
 
-#temp_local, temp_host, temp_filepath, temp_username, temp_password = woodstocks.setup()
-#if not woodstocks.update_count(temp_local):
-woodstocks.transfer('/Users/mitchelking/Python/test.txt', 'mitchelsmbp.local', '/Users/mitchelking/Python/test.txt', 'mitchelking', 'five-062202')
+temp_local, temp_host, temp_filepath, temp_username, temp_password = woodstocks.setup()
+if not woodstocks.update_count(temp_local):
+	woodstocks.transfer(temp_local, temp_host, temp_filepath, temp_username, temp_password)
 
 
 
