@@ -60,8 +60,7 @@ class woodstocks():
 					#truncates file after reading is complete, writes new user input
 					item.seek(0)
 					item.truncate()
-					item.write('Horses: ' + Horses + horses_d + ro_h + '\n' + 'Elephants: ' + Elephants + elephants_d + ro_e + '\n' + 'Dogs: ' + Dogs + dog_d + ro_d + '\n' + 'Seals: ' + Seals + seal_d + ro_s)				
-					return False
+					item.write('Horses: ' + Horses + horses_d + ro_h + '\n' + 'Elephants: ' + Elephants + elephants_d + ro_e + '\n' + 'Dogs: ' + Dogs + dog_d + ro_d + '\n' + 'Seals: ' + Seals + seal_d + ro_s)
 				# error handling if nothing exists in the output file it runs new_count()
 				except IndexError:
 					woodstocks.new_count(file)	
@@ -84,35 +83,41 @@ class woodstocks():
 		#Saves users input and transfers this to the remote
 		with open(file, 'w') as new_f:
 			new_f.write('Horses ' + newlines + '\n' + 'Elephants ' + newlines2 + '\n' + 'Dogs ' + newlines3 + '\n' + 'Seals ' + newlines4)
-		#woodstocks.transfer(temp_local, temp_host, temp_filepath, temp_username, temp_password)	
+			
 		
 
 
 				
 	def transfer(local, host, filepath, username, password):
 		try:
-				#SSH connection using variables from setup()
+			#SSH connection using variables from setup()
 			ssh = SSHClient()
 			ssh.load_system_host_keys()
 			ssh.connect(host, port=22, username=username, password=password)
-
+			#file transfer friom local path to remote path
 			scp = SCPClient(ssh.get_transport())
 			scp.put(local, remote_path=filepath)
 			scp.close()
+			#green if succesful
 			GPIO.output(g_led, GPIO.HIGH)
+			#red if unsuccessful
 		except AttributeError:
 			GPIO.output(r_led, GPIO.HIGH)
-			woodstocks.setup()
+			
 		except (socket.error, SSHException):
 			GPIO.output(r_led, GPIO.HIGH)
-			woodstocks.setup()
+			
 
 
 
-
-temp_local, temp_host, temp_filepath, temp_username, temp_password = woodstocks.setup()
-if not woodstocks.update_count(temp_local):
-	woodstocks.transfer(temp_local, temp_host, temp_filepath, temp_username, temp_password)
+if name == '__main__':
+	while True:
+		temp_local, temp_host, temp_filepath, temp_username, temp_password = woodstocks.setup()
+		woodstocks.update_count(temp_local)
+		finish = input('Are you finished updating your stocks? (y or n)')
+	    if finish == 'y':
+			woodstocks.transfer(temp_local, temp_host, temp_filepath, temp_username, temp_password)
+			return False
 
 
 
