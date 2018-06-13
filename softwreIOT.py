@@ -62,6 +62,7 @@ class woodstocks():
 					item.seek(0)
 					item.truncate()
 					item.write('Horses: ' + Horses + horses_d + ro_h + '\n' + 'Elephants: ' + Elephants + elephants_d + ro_e + '\n' + 'Dogs: ' + Dogs + dog_d + ro_d + '\n' + 'Seals: ' + Seals + seal_d + ro_s)
+					return False
 				# error handling if nothing exists in the output file it runs new_count()
 				except IndexError:
 					woodstocks.new_count(file)	
@@ -120,7 +121,7 @@ if __name__ == '__main__':
 			woodstocks.transfer(temp_local, temp_host, temp_filepath, temp_username, temp_password)
 			time.sleep(15)
 			GPIO.cleanup()
-
+			exit()
 
 
 
