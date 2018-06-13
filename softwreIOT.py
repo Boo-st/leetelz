@@ -3,6 +3,7 @@ from paramiko import SSHException
 from scp import SCPClient
 import RPi.GPIO as GPIO
 import socket
+import time
 
 
 g_led = 13
@@ -110,14 +111,15 @@ class woodstocks():
 
 
 
-if name == '__main__':
+if __name__ == '__main__':
 	while True:
 		temp_local, temp_host, temp_filepath, temp_username, temp_password = woodstocks.setup()
 		woodstocks.update_count(temp_local)
 		finish = input('Are you finished updating your stocks? (y or n)')
-	    if finish == 'y':
+		if finish == 'y':
 			woodstocks.transfer(temp_local, temp_host, temp_filepath, temp_username, temp_password)
-			return False
+			time.sleep(15)
+			GPIO.cleanup()
 
 
 
