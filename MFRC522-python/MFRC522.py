@@ -1,4 +1,4 @@
-usr/bin/env python
+usr/bin/env python3
 # -*- coding: utf8 -*-
 
 import RPi.GPIO as GPIO
@@ -287,7 +287,7 @@ class MFRC522:
     (status, backData, backLen) = self.MFRC522_ToCard(self.PCD_TRANSCEIVE, buf)
     
     if (status == self.MI_OK) and (backLen == 0x18):
-      print "Size: " + str(backData[0])
+      print("Size: " + str(backData[0]))
       return    backData[0]
     else:
       return 0
@@ -394,3 +394,4 @@ class MFRC522:
     self.Write_MFRC522(self.TxAutoReg, 0x40)
     self.Write_MFRC522(self.ModeReg, 0x3D)
     self.AntennaOn()
+ls 
