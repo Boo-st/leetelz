@@ -1,4 +1,4 @@
-usr/bin/env python3
+#usr/bin/env python3
 # -*- coding: utf8 -*-
 
 import RPi.GPIO as GPIO
@@ -393,5 +393,4 @@ class MFRC522:
     
     self.Write_MFRC522(self.TxAutoReg, 0x40)
     self.Write_MFRC522(self.ModeReg, 0x3D)
-    self.AntennaOn()
-ls 
+    self.AntennaOn() 
