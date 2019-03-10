@@ -36,7 +36,7 @@ def main():
 	temperature = sensorRead[1]
 	humidity = sensorRead[2]
 
-	database = ("/home/pi/IOT/leetelz/flaskdb/venv/TTF.db")
+	database = ("/home/pi/IOT/leetelz/flaskdb/venv/machineData.db")
 
 	sql_create_user = (""" CREATE TABLE IF NOT EXISTS userData (
                                         id integer PRIMARY KEY,
